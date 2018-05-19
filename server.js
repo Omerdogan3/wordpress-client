@@ -6,8 +6,8 @@ app.route('/').get(function(req, res) {
     res.sendFile(process.cwd() + '/public/index.html');
 });
 
-app.get('/:client/:server', (req,res)=>{
-    crawler(req.params.client, req.params.server);
+app.get('/:client/:server/:numofposts/:username/:password', (req,res)=>{
+    crawler(req.params.client, req.params.server, req.params.numofposts);
 })
 
 var port = process.env.PORT || 8080; 

@@ -7,7 +7,7 @@ const guuid = require('./components/guuid');
 var uuid = guuid();
 
 
-module.exports = crawler = (client, server) => {
+module.exports = crawler = (client, server, numofposts) => {
     var wp = new WPAPI({
         endpoint: util.format('http://%s/wp-json',server)
     });
@@ -27,7 +27,7 @@ module.exports = crawler = (client, server) => {
     }
     
     
-    for(let i=0; i<1; ++i){
+    for(let i=0; i<numofposts; ++i){
         wp.posts().then(( data ) => {
             resObj.title = data[i].title.rendered;
             resObj.content = data[i].content.rendered;
