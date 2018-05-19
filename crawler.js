@@ -8,8 +8,10 @@ var uuid = guuid();
 
 
 module.exports = crawler = async (client, server, padding, res) => {
+    let page = Math.floor(padding/10);
+    padding = padding%10;
     var wp = new WPAPI({
-        endpoint: util.format('http://%s/wp-json',server)
+        endpoint: util.format('https://%s/wp-json',server)
     });
     
     var site = new WPAPI({
@@ -25,12 +27,13 @@ module.exports = crawler = async (client, server, padding, res) => {
         postid: ''
     }
     
-    wp.posts().then(( data ) => {
+    wp.posts().perPage(10).page( page ).then(( data ) => {
         resObj.title = data[padding].title.rendered;
         resObj.content = data[padding].content.rendered;
 
         wp.media().id(data[padding].featured_media).then(
             (res) => {
+                console.log(res.source_url);
                 download(res.source_url,util.format("imageContainer/%s.jpg",uuid),
                     (done)=>{
                         console.log('done!')
@@ -57,6 +60,7 @@ module.exports = crawler = async (client, server, padding, res) => {
                             featured_media: response.id
                         })
                         res.send("Success");
+                        console.log("Success");
                     })
                 }   
             )
