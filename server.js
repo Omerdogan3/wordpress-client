@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();           
 var crawler = require('./crawler');
+var removeImages = require('./components/removeAllImages');
 
 app.route('/').get(function(req, res) {
     res.sendFile(process.cwd() + '/public/index.html');
@@ -8,6 +9,10 @@ app.route('/').get(function(req, res) {
 
 app.get('/:client/:server/:padding', (req,res)=>{
     crawler(req.params.client, req.params.server, req.params.padding, res);
+})
+
+app.get('/removeimages',(req,res)=>{
+    removeImages(res);
 })
 
 var port = process.env.PORT || 8080; 
