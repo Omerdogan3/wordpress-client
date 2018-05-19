@@ -6,7 +6,7 @@ app.route('/').get(function(req, res) {
     res.sendFile(process.cwd() + '/public/index.html');
 });
 
-app.get('/:client/:server/:numofposts/:username/:password', (req,res)=>{
+app.get('/:client/:server/:numofposts/', (req,res)=>{
     crawler(req.params.client, req.params.server, req.params.numofposts);
 })
 
