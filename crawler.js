@@ -5,7 +5,7 @@ const guuid = require('./components/guuid');
 
 
 var uuid = guuid();
-
+//hell yeah
 
 module.exports = crawler = async (client, server, padding, res) => {
     let page = Math.floor(padding/10)+1;
