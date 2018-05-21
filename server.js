@@ -11,9 +11,9 @@ app.get('/:client/:server/:padding', (req,res)=>{
     crawler(req.params.client, req.params.server, req.params.padding, res);
 })
 
-app.get('/removeimages',(req,res)=>{
-    removeImages(res);
-})
+// app.get('/removeimages',(req,res)=>{
+//     removeImages(res);
+// })
 
 var port = process.env.PORT || 8080; 
 app.listen(port, function() {
