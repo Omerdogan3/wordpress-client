@@ -9,8 +9,9 @@ var uuid = guuid();
 
 module.exports = crawler = async (client, server, padding, res) => {
     let page = Math.floor(padding/10)+1;
-    console.log(page);
+    console.log("Page",page);
     padding = padding%10;
+    console.log("Padding", padding);
     var wp = new WPAPI({
         endpoint: util.format('https://%s/wp-json',server)
     });
@@ -62,6 +63,22 @@ module.exports = crawler = async (client, server, padding, res) => {
                         })
                         res.send("Success");
                         console.log("Success");
+                    }).catch(()=>{
+                        site.media().file("./no-thumbnail.jpg").create({
+                            title: resObj.title,
+                            alt_text: resObj.title,
+                            caption: resObj.title,
+                            description: resObj.content
+                        }).then((response) => {
+                            site.posts().id(resObj.postid).update({
+                                featured_media: response.id,
+                                tags: [3]
+                            }).then(
+                                res.send("Could not imported tumbnail!")
+                            )
+                            
+                        })
+                        
                     })
                 }   
             )
