@@ -37,7 +37,7 @@ module.exports = crawler = async (client, server, padding, res) => {
             (res) => {
                 download(res.source_url,util.format("imageContainer/%s.jpg",uuid),
                     (done)=>{
-                        console.log('done!')
+                        console.log('Image Stored!');
                     })
         }).then(()=>{
             site.posts().create({
@@ -61,7 +61,7 @@ module.exports = crawler = async (client, server, padding, res) => {
                             featured_media: response.id,
                             tags: [3]
                         })
-                        res.send("Success");
+                        res.send(resObj);
                         console.log("Success");
                     }).catch(()=>{
                         site.media().file("./no-thumbnail.jpg").create({
