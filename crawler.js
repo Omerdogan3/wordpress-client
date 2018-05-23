@@ -3,6 +3,8 @@ const util = require('util');
 const download = require('./components/imgDownloader');
 const guuid = require('./components/guuid');
 
+const publishContent = require('./components/publishContent');
+const setThumbnail = require('./components/setThumbnail');
 
 var uuid = guuid();
 //hell yeah
@@ -40,46 +42,9 @@ module.exports = crawler = async (client, server, padding, res) => {
                         console.log('Image Stored!');
                     })
         }).then(()=>{
-            site.posts().create({
-                title: resObj.title,
-                content: resObj.content,
-                status: 'publish'
-            }).then(function( response ) {
-                resObj.postid = response.id;
-                console.log(response.id);
-            }).catch((err)=>{
-                console.log(err)
-            }).then(
+            publishContent(site,resObj).then(
                 ()=>{
-                    site.media().file(util.format("imageContainer/%s.jpg",uuid)).create({
-                        title: resObj.title,
-                        alt_text: resObj.title,
-                        caption: resObj.title,
-                        description: resObj.content
-                    }).then((response) => {
-                        site.posts().id(resObj.postid).update({
-                            featured_media: response.id,
-                            tags: [3]
-                        })
-                        res.send(resObj);
-                        console.log("Success");
-                    }).catch(()=>{
-                        site.media().file("./no-thumbnail.jpg").create({
-                            title: resObj.title,
-                            alt_text: resObj.title,
-                            caption: resObj.title,
-                            description: resObj.content
-                        }).then((response) => {
-                            site.posts().id(resObj.postid).update({
-                                featured_media: response.id,
-                                tags: [3]
-                            }).then(
-                                res.send("Could not imported tumbnail!")
-                            )
-                            
-                        })
-                        
-                    })
+                    setThumbnail(site, resObj, res);
                 }   
             )
         })
