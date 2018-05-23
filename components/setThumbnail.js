@@ -1,6 +1,7 @@
 const util = require('util');
 
-module.exports = setThumbnail = (site, resObj, res) => {
+module.exports = setThumbnail = (site, id, resObj, result, uuid) => {
+    console.log("Setting Thumbnail", id);
     site.media().file(util.format("imageContainer/%s.jpg",uuid)).create({
         title: resObj.title,
         alt_text: resObj.title,
@@ -11,7 +12,7 @@ module.exports = setThumbnail = (site, resObj, res) => {
             featured_media: response.id,
             tags: [3]
         })
-        res.send(resObj);
+        result.send(resObj);
         console.log("Success");
     }).catch(()=>{
         site.media().file("./no-thumbnail.jpg").create({
@@ -24,7 +25,7 @@ module.exports = setThumbnail = (site, resObj, res) => {
                 featured_media: response.id,
                 tags: [3]
             }).then(
-                res.send("Could not imported tumbnail!")
+                result.send("Could not imported tumbnail!")
             )
         })
     })

@@ -7,9 +7,8 @@ const publishContent = require('./components/publishContent');
 const setThumbnail = require('./components/setThumbnail');
 
 var uuid = guuid();
-//hell yeah
 
-module.exports = crawler = async (client, server, padding, res) => {
+module.exports = crawler = async (client, server, padding, result) => {
     let page = Math.floor(padding/10)+1;
     console.log("Page",page);
     padding = padding%10;
@@ -37,17 +36,13 @@ module.exports = crawler = async (client, server, padding, res) => {
 
         wp.media().id(data[padding].featured_media).then(
             (res) => {
+                console.log(res.source_url);
                 download(res.source_url,util.format("imageContainer/%s.jpg",uuid),
                     (done)=>{
-                        console.log('Image Stored!');
+                        publishContent(site,resObj,(id)=>setThumbnail(site, id, resObj, result, uuid));
                     })
-        }).then(()=>{
-            publishContent(site,resObj).then(
-                ()=>{
-                    setThumbnail(site, resObj, res);
-                }   
-            )
-        })
+        });
+            
     });
 }
 
