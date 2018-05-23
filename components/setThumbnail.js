@@ -14,10 +14,14 @@ module.exports = setThumbnail = (site, id, resObj, result, uuid) => {
             tags: [3]
         })
         result.send(resObj);
-        removeImage(uuid.concat('.jpg'));
+
+        if(uuid !== "no-thumbnail"){
+            removeImage(uuid.concat('.jpg'));
+        }
         console.log("Success");
+        
     }).catch(()=>{
-        site.media().file("./no-thumbnail.jpg").create({
+        site.media().file("./imageContainer/no-thumbnail.jpg").create({
             title: resObj.title,
             alt_text: resObj.title,
             caption: resObj.title,
@@ -28,7 +32,7 @@ module.exports = setThumbnail = (site, id, resObj, result, uuid) => {
                 tags: [3]
             }).then(()=>{
                 result.send("Could not imported tumbnail!");
-                removeImage(uuid.concat('.jpg'));
+                // removeImage(uuid.concat('.jpg'));
             })
         })
     })
