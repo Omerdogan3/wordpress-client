@@ -1,4 +1,5 @@
 const util = require('util');
+const removeImage = require('./removeImage');
 
 module.exports = setThumbnail = (site, id, resObj, result, uuid) => {
     console.log("Setting Thumbnail", id);
@@ -13,6 +14,7 @@ module.exports = setThumbnail = (site, id, resObj, result, uuid) => {
             tags: [3]
         })
         result.send(resObj);
+        removeImage(uuid.concat('.jpg'));
         console.log("Success");
     }).catch(()=>{
         site.media().file("./no-thumbnail.jpg").create({
@@ -24,9 +26,10 @@ module.exports = setThumbnail = (site, id, resObj, result, uuid) => {
             site.posts().id(resObj.postid).update({
                 featured_media: response.id,
                 tags: [3]
-            }).then(
-                result.send("Could not imported tumbnail!")
-            )
+            }).then(()=>{
+                result.send("Could not imported tumbnail!");
+                removeImage(uuid.concat('.jpg'));
+            })
         })
     })
 };
