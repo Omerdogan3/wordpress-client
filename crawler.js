@@ -34,21 +34,25 @@ module.exports = crawler = async (client, server, padding, result) => {
     wp.posts().perPage(10).page(page).then((data) => {
         resObj.title = data[padding].title.rendered;
         resObj.content = data[padding].content.rendered;
-
         wp.media().id(data[padding].featured_media).then(
             (res) => {
-                download(res.source_url,util.format("imageContainer/%s.jpg",uuid),
-                    (done)=>{
-                        publishContent(site,resObj,(id)=>{result.send(resObj)})
-                        // publishContent(site,resObj,(id)=>setThumbnail(site, id, resObj, result, uuid));
-                    })
-            }).catch(
-                publishContent(site,resObj,(id)=>{result.send(resObj)})
-            );    
-        });
+                console.log(res.source_url);
+                download(res.source_url,util.format("imageContainer/%s.jpg",uuid),()=>{
+                    
+                });
+            }).then(
+                setTimeout(() => {
+                    publishContent(site,resObj,(id)=>setThumbnail(site, id, resObj, result, uuid))
+                }, 1500)
+                
+            );
+        })
 }
 
 
+
+// publishContent(site,resObj,(id)=>{result.send(resObj)})
+// publishContent(site,resObj,(id)=>setThumbnail(site, id, resObj, result, uuid));
 
 
 
