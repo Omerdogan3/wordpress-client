@@ -39,7 +39,8 @@ module.exports = crawler = async (client, server, padding, result) => {
             (res) => {
                 download(res.source_url,util.format("imageContainer/%s.jpg",uuid),
                     (done)=>{
-                        publishContent(site,resObj,(id)=>setThumbnail(site, id, resObj, result, uuid));
+                        publishContent(site,resObj,(id)=>{result.send(resObj)})
+                        // publishContent(site,resObj,(id)=>setThumbnail(site, id, resObj, result, uuid));
                     })
             }).catch(
                 publishContent(site,resObj,(id)=>{result.send(resObj)})
