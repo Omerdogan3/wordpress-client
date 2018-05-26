@@ -10,7 +10,7 @@ const setThumbnail = require('./components/setThumbnail');
 
 var uuid = guuid();
 
-module.exports = crawler = async (client, server, padding, result) => {
+module.exports = crawler = async (client, server, padding, result, numofposts, callback) => {
     let page = Math.floor(padding/10)+1;
     console.log("Page",page);
     padding = padding%10;
@@ -39,22 +39,11 @@ module.exports = crawler = async (client, server, padding, result) => {
             (res) => {
                 console.log(res.source_url);
                 download(res.source_url,util.format("imageContainer/%s.jpg",uuid),()=>{
-                    
                 });
             }).then(
                 setTimeout(() => {
                     publishContent(site,resObj,(id)=>setThumbnail(site, id, resObj, result, uuid))
                 }, 1500)
-                
             );
         })
 }
-
-
-
-// publishContent(site,resObj,(id)=>{result.send(resObj)})
-// publishContent(site,resObj,(id)=>setThumbnail(site, id, resObj, result, uuid));
-
-
-
-

@@ -7,9 +7,21 @@ app.route('/').get(function(req, res) {
     res.sendFile(process.cwd() + '/public/index.html');
 });
 
-app.get('/:client/:server/:padding', (req,res)=>{
-    crawler(req.params.client, req.params.server, req.params.padding, res);
-})
+app.get('/:client/:server/:padding/:numofposts', (req,res)=>{
+	let padding = req.params.padding;
+	// crawler(req.params.client, req.params.server, req.params.padding, res,(result)=>{
+	// 	console.log(result);
+	// });
+
+	insertCollection = (i) =>{
+		padding = padding + i;
+		if(i<req.params.numofposts) {
+			crawler(req.params.client, req.params.server, req.params.padding, res);
+		}
+	};   
+	insertCollection(0); 
+});
+
 
 // app.get('/removeimages',(req,res)=>{
 //     removeImages(res);

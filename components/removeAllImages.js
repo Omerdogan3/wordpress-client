@@ -9,7 +9,7 @@ module.exports = removeImages = (res) => {
         for (const file of files) {
             fs.unlink(path.join(directory, file), err => {
                 if (err) throw err;
-                res.send("Success");
+                // res.send("Success");
             });
         }
     });
