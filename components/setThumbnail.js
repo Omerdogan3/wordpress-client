@@ -10,7 +10,7 @@ module.exports = setThumbnail = (site, id, resObj, result, uuid, callback) => {
         description: resObj.content
     }).then((response) => {
         site.posts().id(resObj.postid).update({
-            featured_media: null,
+            featured_media: response.id,
             tags: [3]
         })
         // result.send(resObj);
