@@ -9,9 +9,6 @@ app.route('/').get(function(req, res) {
 
 app.get('/:client/:server/:padding/:numofposts', (req,res)=>{
 	let padding = req.params.padding;
-	// crawler(req.params.client, req.params.server, req.params.padding, res,(result)=>{
-	// 	console.log(result);
-	// });
 
 	insertCollection = (i) =>{
 		padding = padding + i;
