@@ -10,7 +10,7 @@ module.exports = setThumbnail = (site, id, resObj, result, uuid, callback) => {
         description: resObj.content
     }).then((response) => {
         site.posts().id(resObj.postid).update({
-            featured_media: response.id,
+            featured_media: null,
             tags: [3]
         })
         // result.send(resObj);
@@ -22,19 +22,11 @@ module.exports = setThumbnail = (site, id, resObj, result, uuid, callback) => {
         console.log("Success");
         
     }).catch(()=>{
-        site.media().file("./imageContainer/no-thumbnail.jpg").create({
-            title: resObj.title,
-            alt_text: resObj.title,
-            caption: resObj.title,
-            description: resObj.content
-        }).then((response) => {
-            site.posts().id(resObj.postid).update({
-                featured_media: response.id,
-                tags: [3]
-            }).then(()=>{
-                result.send("Could not imported tumbnail!");
-                // removeImage(uuid.concat('.jpg'));
-            })
+        site.posts().id(resObj.postid).update({
+            featured_media: null
+        }).then(()=>{
+            result.send("Could not imported tumbnail!");
+            // removeImage(uuid.concat('.jpg'));
         })
     })
 };
