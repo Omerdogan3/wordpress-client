@@ -17,7 +17,7 @@ app.get('/:client/:server/:padding/:numofposts', (req,res)=>{
 		}
 	};   
 
-	// insertCollection(0); 
+	insertCollection(0); 
 });
 
 
