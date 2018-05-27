@@ -7,7 +7,6 @@ module.exports = setThumbnail = (site, id, resObj, result, uuid, callback) => {
         title: resObj.title,
         alt_text: resObj.title,
         caption: resObj.title,
-        description: null
     }).then((response) => {
         site.posts().id(resObj.postid).update({
             featured_media: response.id,
