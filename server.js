@@ -13,7 +13,9 @@ app.get('/:client/:server/:padding/:numofposts', (req,res)=>{
 	insertCollection = (i) =>{
 		padding = padding + i;
 		if(i<req.params.numofposts) {
-			crawler(req.params.client, req.params.server, req.params.padding, res);
+			crawler(req.params.client, req.params.server, padding, res, (result)=>{
+				insertCollection(i+1);
+			});
 		}
 	};   
 
