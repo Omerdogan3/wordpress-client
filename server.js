@@ -16,11 +16,12 @@ app.get('/:client/:server/:padding/:numofposts', (req,res)=>{
 			crawler(req.params.client, req.params.server, padding, res, (result)=>{
 				insertCollection(i+1);
 			});
+		}else{
+			res.send(resObj);
 		}
 	};   
 
 	insertCollection(0); 
-	res.send(resObj);
 });
 
 
