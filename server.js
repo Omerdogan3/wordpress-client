@@ -13,7 +13,10 @@ app.get('/:client/:server/:padding/:numofposts', (req,res)=>{
 	insertCollection = (i) =>{
 		padding = padding + i;
 		if(i<req.params.numofposts) {
-			crawler(req.params.client, req.params.server, padding, res);
+			crawler(req.params.client, req.params.server, padding, res, (result)=>{
+				resObj = result;
+				insertCollection(i+1);
+			});
 		}else{
 			res.send(resObj);
 		}
@@ -22,9 +25,9 @@ app.get('/:client/:server/:padding/:numofposts', (req,res)=>{
 });
 
 
-// app.get('/removeimages',(req,res)=>{
-//     removeImages(res);
-// })
+app.get('/removeimages',(req,res)=>{
+    removeImages(res);
+})
 
 var port = process.env.PORT || 8080; 
 app.listen(port, function() {
