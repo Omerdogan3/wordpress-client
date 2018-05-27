@@ -13,7 +13,7 @@ module.exports = setThumbnail = (site, id, resObj, result, uuid, callback) => {
             featured_media: response.id,
             tags: [3]
         })
-        result.send(resObj);
+        // result.send(resObj);
         callback(resObj);
 
         if(uuid !== "no-thumbnail"){

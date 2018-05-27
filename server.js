@@ -9,7 +9,7 @@ app.route('/').get(function(req, res) {
 
 app.get('/:client/:server/:padding/:numofposts', (req,res)=>{
 	let padding = req.params.padding;
-
+	let resObj;
 	insertCollection = (i) =>{
 		padding = padding + i;
 		if(i<req.params.numofposts) {
@@ -20,6 +20,7 @@ app.get('/:client/:server/:padding/:numofposts', (req,res)=>{
 	};   
 
 	insertCollection(0); 
+	res.send(resObj);
 });
 
 
