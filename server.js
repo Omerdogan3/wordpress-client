@@ -8,20 +8,17 @@ app.route('/').get(function(req, res) {
 });
 
 app.get('/:client/:server/:padding/:numofposts', (req,res)=>{
-	let padding = req.params.padding;
+	let padding = parseInt(req.params.padding);
 	let resObj;
 	insertCollection = (i) =>{
 		padding = padding + i;
 		if(i<req.params.numofposts) {
-			crawler(req.params.client, req.params.server, padding, res, (result)=>{
-				insertCollection(i+1);
-			});
+			crawler(req.params.client, req.params.server, padding, res);
 		}else{
 			res.send(resObj);
 		}
-	};   
-
-	insertCollection(0); 
+	};
+	insertCollection(0);
 });
 
 
