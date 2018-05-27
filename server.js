@@ -16,7 +16,8 @@ app.get('/:client/:server/:padding/:numofposts', (req,res)=>{
 			crawler(req.params.client, req.params.server, req.params.padding, res);
 		}
 	};   
-	insertCollection(0); 
+
+	// insertCollection(0); 
 });
 
 

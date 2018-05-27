@@ -20,7 +20,6 @@ module.exports = setThumbnail = (site, id, resObj, result, uuid, callback) => {
             removeImage(uuid.concat('.jpg'));
         }
         console.log("Success");
-        
     }).catch(()=>{
         site.posts().id(resObj.postid).update({
             featured_media: null
