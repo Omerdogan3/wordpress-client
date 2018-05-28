@@ -6,8 +6,6 @@ const guuid = require('./components/guuid');
 const publishContent = require('./components/publishContent');
 const setThumbnail = require('./components/setThumbnail');
 
-//daily commit
-
 var uuid = guuid();
 
 module.exports = crawler = async (client, server, padding, result, callback) => {
