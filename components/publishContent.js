@@ -11,6 +11,6 @@ module.exports = publishContent = async (site, resObj, callback) => {
         callback(response.id);
         console.log(response.id);
     }).catch((err)=>{
-        console.log(err)
+        result.send(err);
     });
 }
