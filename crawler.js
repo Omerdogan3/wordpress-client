@@ -14,8 +14,8 @@ module.exports = crawler = async (client, server, padding, result, callback) => 
     padding = padding%10;
     console.log("Padding", padding);
     var wp = new WPAPI({
-        endpoint: util.format('https://%s/wp-json',server)
-    });
+        endpoint: util.format('http://%s/wp-json',server)
+    })
     
     var site = new WPAPI({
         endpoint: util.format('http://%s/wp-json',client),

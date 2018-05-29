@@ -3,6 +3,8 @@ var app = express();
 var crawler = require('./crawler');
 var removeImages = require('./components/removeAllImages');
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 app.route('/').get(function(req, res) {
     res.sendFile(process.cwd() + '/public/index.html');
 });
