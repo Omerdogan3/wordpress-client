@@ -16,6 +16,8 @@ module.exports = crawler = async (client, server, padding, result, callback) => 
     var wp = new WPAPI({
         endpoint: util.format('http://%s/wp-json',server)
     })
+
+    //
     
     var site = new WPAPI({
         endpoint: util.format('http://%s/wp-json',client),
