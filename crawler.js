@@ -17,7 +17,7 @@ module.exports = crawler = async (client, server, padding, result, callback) => 
         endpoint: util.format('http://%s/wp-json',server)
     })
 
-    //
+    //Daily Commit
     
     var site = new WPAPI({
         endpoint: util.format('http://%s/wp-json',client),
