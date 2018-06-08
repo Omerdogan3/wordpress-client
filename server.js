@@ -2,8 +2,11 @@ var express = require('express');
 var app = express();           
 var crawler = require('./crawler');
 var removeImages = require('./components/removeAllImages');
+var cors = require('cors')
 
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+app.use(cors())
 
 app.route('/').get(function(req, res) {
     res.sendFile(process.cwd() + '/public/index.html');
